@@ -57,8 +57,11 @@ export const getDashboardCourseData = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const { courseId } = req.params;
-  const course = await getCourseData(courseId);
-
-  return res.json({ course });
+  try {
+    const { courseId } = req.params;
+    const course = await getCourseData(courseId);
+    return res.json({ course });
+  } catch (error) {
+    return next(error);
+  }
 };

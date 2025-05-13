@@ -15,8 +15,7 @@ class User
   public user_deleted_at!: Date | null;
   public user_state!: string;
 
-  // Association helper (automatically filled by Sequelize)
-  public readonly credentials?: Credential[]; // optional if eager loaded
+  public readonly credentials?: Credential[];
 
   public static initModel(sequelize: Sequelize): void {
     User.init(
@@ -46,7 +45,7 @@ class User
       {
         sequelize,
         tableName: "users",
-        timestamps: false, // ✅ since explicit created_at field already exists
+        timestamps: false,
       },
     );
   }

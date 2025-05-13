@@ -30,7 +30,7 @@ export const getDashboardTopicData = async (user: Express.User) => {
     const courseIds = instructorEnrollments.map((e) => e.course_id);
 
     if (courseIds.length === 0) {
-      return {}; // no access
+      return {};
     }
 
     const topics = await Topic.findAll({

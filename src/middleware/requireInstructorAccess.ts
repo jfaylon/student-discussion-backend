@@ -13,12 +13,12 @@ export const requireInstructorAccess = (
 ) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      // ✅ Admins always allowed
+      // Admins always allowed
       if (req.user?.role === "admin") {
         return next();
       }
 
-      // 🔍 If mode is course-level
+      // If mode is course-level
       if (mode === "course") {
         const courseId = req[from!]?.[key];
 
@@ -40,7 +40,7 @@ export const requireInstructorAccess = (
         if (match) return next();
       }
 
-      // 🔍 If mode is general (any instructor role)
+      // If mode is general (any instructor role)
       if (mode === "any") {
         const count = await Enrollment.count({
           where: {

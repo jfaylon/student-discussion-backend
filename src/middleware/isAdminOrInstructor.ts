@@ -12,7 +12,6 @@ export const isAdminOrCourseInstructor = (
 ) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      // Allow admin
       if (req.user?.role === "admin") {
         return next();
       }

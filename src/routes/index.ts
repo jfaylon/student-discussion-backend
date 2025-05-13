@@ -4,7 +4,6 @@ import AccountRouter from "./AccountRouter";
 
 const router = Router();
 
-// Define your routes here
 router.get("/", (req, res) => {
   res.send("Welcome to the Student Discussion Backend!");
 });

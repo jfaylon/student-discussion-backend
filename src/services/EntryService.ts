@@ -18,7 +18,6 @@ export const getDashboardEntryData = async (user: Express.User) => {
       return acc;
     }, {});
   } else {
-    // ✅ Get instructor's active teaching enrollments
     const enrollments = await Enrollment.findAll({
       where: {
         user_id: user.user_id,
@@ -32,10 +31,9 @@ export const getDashboardEntryData = async (user: Express.User) => {
     const courseIds = enrollments.map((e) => e.course_id);
 
     if (courseIds.length === 0) {
-      return {}; // No courses taught
+      return {};
     }
 
-    // ✅ Get entries related to topics within those courses
     const entries = await Entry.findAll({
       include: [
         {

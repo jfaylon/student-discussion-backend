@@ -7,11 +7,9 @@ RUN npm install
 
 COPY . .
 
-# Copy env file into image as .env
 ARG ENV=docker
 COPY .env.${ENV} .env
 
-# Optional: if you use dotenv in your code, this makes .env available
 ENV NODE_ENV=production
 
 RUN npm run build

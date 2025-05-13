@@ -36,7 +36,7 @@ export const getDashboardUserData = async (
     const courseIds = instructorEnrollments.map((e) => e.course_id);
 
     if (courseIds.length === 0) {
-      return {}; // no access
+      return {};
     }
 
     const userEnrollments = await Enrollment.findAll({

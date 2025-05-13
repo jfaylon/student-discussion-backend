@@ -48,7 +48,6 @@ export const getDashboardEnrollmentsData = async (user: Express.User) => {
       group: ["enrollment_state", "enrollment_type"],
       raw: true,
     });
-    // return allEnrollments;
     const enrollmentTypeData = allEnrollments.reduce(
       (acc: Record<string, number>, row: any) => {
         const key = `${row.enrollment_type}_${row.enrollment_state}`;

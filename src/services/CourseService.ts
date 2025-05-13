@@ -4,7 +4,12 @@ import Course from "../models/Course";
 import Enrollment from "../models/Enrollment";
 import Entry from "../models/Entry";
 import Topic from "../models/Topic";
-import { EnrollmentCount, EntryCount, FlatEntry, TopicsCount } from "../interfaces";
+import {
+  EnrollmentCount,
+  EntryCount,
+  FlatEntry,
+  TopicsCount,
+} from "../interfaces";
 
 const stopWords = [
   "the",
@@ -21,7 +26,6 @@ const stopWords = [
   "was",
   "all",
 ];
-
 
 export const getDashboardCourses = async (user: Express.User) => {
   if (user.role === "admin") {
@@ -55,7 +59,6 @@ export const getCoursesPerSemester = async (
   semester: string,
 ) => {
   if (user.role !== "admin") {
-    // return []; // optionally restrict or throw
     const instructorEnrollments = await Enrollment.findAll({
       where: {
         user_id: user.user_id,
@@ -73,7 +76,6 @@ export const getCoursesPerSemester = async (
 
     const courseIds = courses.map((c) => c.course_id);
 
-    // 2. Get enrollment counts (students only)
     const enrollments = (await Enrollment.findAll({
       where: {
         course_id: { [Op.in]: courseIds },
@@ -92,7 +94,6 @@ export const getCoursesPerSemester = async (
       enrollments.map((e) => [e.course_id, Number(e.student_count)]),
     );
 
-    // 3. Get topic counts
     const topics = (await Topic.findAll({
       where: {
         course_id: { [Op.in]: courseIds },
@@ -109,8 +110,6 @@ export const getCoursesPerSemester = async (
     const topicMap = Object.fromEntries(
       topics.map((t) => [t.course_id, Number(t.topic_count)]),
     );
-
-    // 4. Get entry counts (not deleted)
 
     const entries = (await Entry.findAll({
       include: [
@@ -137,7 +136,6 @@ export const getCoursesPerSemester = async (
       entries.map((e) => [e.course_id, Number(e.entry_count)]),
     );
 
-    // 5. Merge and return
     const enrichedCourses = courses.map((course) => ({
       ...course,
       student_count: enrollmentMap[course.course_id] ?? 0,
@@ -148,7 +146,6 @@ export const getCoursesPerSemester = async (
     return enrichedCourses;
   }
 
-  // 1. Get all courses for the semester
   const courses = await Course.findAll({
     where: { semester },
     raw: true,
@@ -156,7 +153,6 @@ export const getCoursesPerSemester = async (
 
   const courseIds = courses.map((c) => c.course_id);
 
-  // 2. Get enrollment counts (students only)
   const enrollments = (await Enrollment.findAll({
     where: {
       course_id: { [Op.in]: courseIds },
@@ -175,7 +171,6 @@ export const getCoursesPerSemester = async (
     enrollments.map((e) => [e.course_id, Number(e.student_count)]),
   );
 
-  // 3. Get topic counts
   const topics = (await Topic.findAll({
     where: {
       course_id: { [Op.in]: courseIds },
@@ -192,8 +187,6 @@ export const getCoursesPerSemester = async (
   const topicMap = Object.fromEntries(
     topics.map((t) => [t.course_id, Number(t.topic_count)]),
   );
-
-  // 4. Get entry counts (not deleted)
 
   const entries = (await Entry.findAll({
     include: [
@@ -220,7 +213,6 @@ export const getCoursesPerSemester = async (
     entries.map((e) => [e.course_id, Number(e.entry_count)]),
   );
 
-  // 5. Merge and return
   const enrichedCourses = courses.map((course) => ({
     ...course,
     student_count: enrollmentMap[course.course_id] ?? 0,
@@ -236,6 +228,10 @@ export const getCourseData = async (courseId: string) => {
     where: { course_id: courseId },
     raw: true,
   });
+
+  if (!course) {
+    throw new Error("Not found");
+  }
 
   const studentCount = await Enrollment.count({
     where: {
@@ -285,13 +281,9 @@ export const getCourseData = async (courseId: string) => {
     grouped[topicId].entry_count++;
   }
 
-  // Optional: convert to array
   const groupedByTopic = Object.values(grouped);
-
   const wordFrequency: Record<string, number> = {};
-
   const tokenizer = new natural.WordTokenizer();
-
   const tokenize = (text: string): string[] => {
     return tokenizer
       .tokenize(text.toLowerCase())
