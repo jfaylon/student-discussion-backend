@@ -3,7 +3,7 @@
 A Node.js + TypeScript backend for the Student Discussion LMS system, built with Express, Sequelize (PostgreSQL), and Docker support.
 
 
-## 📥 Getting Started
+## Getting Started
 
 ### 1. Clone the repository
 
@@ -21,7 +21,7 @@ cd student-discussion-backend
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 | Layer         | Technology            |
 |---------------|------------------------|
@@ -48,13 +48,13 @@ cd student-discussion-backend
 
 ---
 
-## ▶️ Running the Application
+## Running the Application
 
 There are **two ways** to run the backend:
 
 ---
 
-### ✅ Option A: Run with Docker
+### Option A: Run with Docker
 
 This is the preferred method if you want an isolated environment.
 
@@ -103,7 +103,7 @@ docker exec -it backend npm run seed
 
 This is ideal for development using `ts-node` and `nodemon`.
 
-#### 🔧 Requirements
+#### Requirements
 
 - Install **Node.js v22** or later
 - Install **PostgreSQL** locally (or connect to Docker container)
@@ -139,7 +139,7 @@ npm run seed
 ---
 
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 backend/
@@ -154,7 +154,7 @@ backend/
 
 ---
 
-## 🔧 Environment Variables
+## Environment Variables
 
 Environment values are loaded using `dotenv`.
 
@@ -176,7 +176,7 @@ CORS_ORIGIN=http://localhost:3000
 
 ---
 
-## 📜 Available Scripts
+## Available Scripts
 
 | Script           | Description                                 |
 |------------------|---------------------------------------------|
