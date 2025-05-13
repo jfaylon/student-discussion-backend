@@ -8,7 +8,7 @@ A Node.js + TypeScript backend for the Student Discussion LMS system, built with
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/student-discussion-backend.git
+git clone https://github.com/jfaylon/student-discussion-backend.git
 cd student-discussion-backend
 ```
 
