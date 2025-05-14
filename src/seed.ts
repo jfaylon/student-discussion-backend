@@ -9,7 +9,14 @@ import Enrollment from "./models/Enrollment";
 import Topic from "./models/Topic";
 import Entry from "./models/Entry";
 import Course from "./models/Course";
-import { CourseCreationAttributes, EnrollmentCreationAttributes, EntryCreationAttributes, LoginCreationAttributes, TopicCreationAttributes, UserCreationAttributes } from "./interfaces";
+import {
+  CourseCreationAttributes,
+  EnrollmentCreationAttributes,
+  EntryCreationAttributes,
+  LoginCreationAttributes,
+  TopicCreationAttributes,
+  UserCreationAttributes,
+} from "./interfaces";
 
 (async () => {
   process.env.SEED_MODE = "true";
@@ -139,7 +146,7 @@ import { CourseCreationAttributes, EnrollmentCreationAttributes, EntryCreationAt
       user_login_id: "x14gpx0a",
       secret: hashedInstructorPassword,
     });
-
+    console.log("Seeding completed successfully.");
     process.exit(0);
   } catch (error) {
     console.error("Error seeding admin user:", error);
