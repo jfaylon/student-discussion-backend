@@ -21,6 +21,7 @@ passport.use(
 
       return done(null, {
         user_id: user.user_id,
+        user_name: user.user_name,
         user_login_id: credential.user_login_id,
         role: user.user_state === "admin" ? "admin" : "user",
       });

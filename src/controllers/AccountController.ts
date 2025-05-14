@@ -10,6 +10,7 @@ export const login = async (
 ) => {
   const payload = req.user as {
     user_id: number;
+    user_name: string;
     role?: string;
     user_login_id: string;
   };
@@ -41,6 +42,7 @@ export const me = async (req: Request, res: Response, next: NextFunction) => {
   }
   return res.json({
     user_id: req.user.user_id,
+    user_name: req.user.user_name,
     role: req.user.role,
     user_login_id: req.user.user_login_id,
   });
